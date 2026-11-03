@@ -1,0 +1,34 @@
+name: Update packages
+
+# Nightly upstream check. A commit pushed here fires the COPR GitHub webhook,
+# which rebuilds only the packages whose directory changed.
+on:
+  schedule:
+    - cron: "0 4 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check upstream versions
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          for dir in packages/*/; do
+            pkg="$(basename "$dir")"
+            version="$(scripts/update.sh "$pkg")" || { echo "::warning::$pkg: update check failed"; continue; }
+            if [ -n "$version" ]; then
+              git add "$dir"
+              git commit -m "$pkg: update to $version"
+              echo "::notice::$pkg updated to $version"
+            fi
+          done
+          git push
