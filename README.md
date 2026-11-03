@@ -11,6 +11,7 @@ sudo dnf copr enable kareylo/personal
 | `obsidian` | [obsidianmd/obsidian-releases](https://github.com/obsidianmd/obsidian-releases) | [kritag/copr-cli-tools](https://github.com/kritag/copr-cli-tools) |
 | `bibata-cursor-themes` | [ful1e5/Bibata_Cursor](https://github.com/ful1e5/Bibata_Cursor) | [peterwu/copr-rendezvous](https://github.com/peterwu/copr-rendezvous) |
 | `claude-desktop-builder` | [dewzor/claude-desktop-fedora](https://github.com/dewzor/claude-desktop-fedora) | upstream, synced as-is |
+| `zen-browser` | [zen-browser/desktop](https://github.com/zen-browser/desktop) | written here |
 
 ## How it updates
 
