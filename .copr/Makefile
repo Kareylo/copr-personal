@@ -9,7 +9,8 @@ spec ?=
 outdir ?= .
 
 PKGDIR := $(abspath $(dir $(spec)))
-WORK := $(CURDIR)/.copr-work
+# COPR runs make from inside the package dir, so keep scratch files out of it.
+WORK := $(or $(TMPDIR),/tmp)/copr-personal-srpm
 SRCDIR := $(WORK)/SOURCES
 
 .PHONY: srpm clean
