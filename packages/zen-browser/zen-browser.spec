@@ -11,7 +11,7 @@
 %global __requires_exclude ^(libclearkey|libfreeblpriv3|libgkcodecs|liblgpllibs|libmozavcodec|libmozavutil|libmozgtk|libmozinference|libmozsandbox|libmozsqlite3|libmozwayland|libnspr4|libnss3|libnssutil3|libonnxruntime|libplc4|libplds4|libsmime3|libsoftokn3|libssl3|libxul)\\.so.*$
 
 Name:           zen-browser
-Version:        1.24b
+Version:        1.24.1b
 Release:        1%{?dist}
 Summary:        Firefox-based browser focused on privacy and a calm workflow
 
@@ -58,5 +58,8 @@ done
 %{_datadir}/icons/hicolor/*/apps/zen-browser.png
 
 %changelog
+* Sat Nov 07 2026 copr-personal bot <noreply@github.com> - 1.24.1b-1
+- Update to 1.24.1b
+
 * Tue Nov 03 2026 Kareylo <contact@kareylo.fr> - 1.24b-1
 - Initial package, repacking the upstream x86_64 tarball
