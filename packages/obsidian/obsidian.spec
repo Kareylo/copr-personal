@@ -1,8 +1,8 @@
 %global debug_package %{nil}
 
 Name:           obsidian
-Version:        1.15.0
-Release:        3%{?dist}
+Version:        1.15.1
+Release:        1%{?dist}
 Summary:        Knowledge base application for Markdown notes
 
 License:        LicenseRef-Obsidian
@@ -59,6 +59,9 @@ install -Dpm0644 %{buildroot}/opt/Obsidian/LICENSES.chromium.html \
 %license %{_licensedir}/%{name}/LICENSES.chromium.html
 
 %changelog
+* Fri Nov 13 2026 copr-personal bot <noreply@github.com> - 1.15.1-1
+- Update to 1.15.1
+
 * Wed Apr 08 2026 Kristian Tagesen <kristian@example.invalid> - 1.12.7-3
 - Package the upstream Debian changelog installed under %%{_docdir}
 
