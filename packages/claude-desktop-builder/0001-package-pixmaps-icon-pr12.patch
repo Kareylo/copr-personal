@@ -1,0 +1,30 @@
+From 9e6f5c5e4fa67a5a0bceda2539d252c557aae6b2 Mon Sep 17 00:00:00 2001
+From: Osinachi Okpara <okparaosi17@gmail.com>
+Date: Sat, 21 Nov 2026 07:35:24 +0100
+Subject: [PATCH] build-official.sh: package the pixmaps icon shipped by
+ 6.28899.x
+
+Anthropic's 6.28899.2 .deb adds /usr/share/pixmaps/claude-desktop.png.
+It is not in %files, so rpmbuild stops with "Installed (but unpackaged)
+file(s) found" and the claude-desktop-update timer fails every day.
+
+List it in %files when the payload ships it, so older payloads still build.
+---
+ build-official.sh | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/build-official.sh b/build-official.sh
+index a9f83dc..158f8d5 100755
+--- a/build-official.sh
++++ b/build-official.sh
+@@ -344,6 +344,10 @@ elif [ -x "$WORK/payload/$RES/bin/ccd" ]; then
+     ln -s ../lib/claude-desktop/resources/bin/ccd "$WORK/payload/usr/bin/ccd"
+     EXTRA_FILES+="/usr/bin/ccd"$'\n'
+ fi
++# Newer payloads (6.28899.x and later) also ship a legacy pixmaps icon.
++if [ -f "$WORK/payload/usr/share/pixmaps/claude-desktop.png" ]; then
++    EXTRA_FILES+="/usr/share/pixmaps/claude-desktop.png"$'\n'
++fi
+ 
+ # ------------------------------------------------------------ rpm build ------
+ RB="$WORK/rpmbuild"

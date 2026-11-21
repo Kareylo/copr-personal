@@ -21,6 +21,15 @@ curl -fL --retry 3 -o "$stage/upstream.tar.gz" \
 mkdir "$stage/src"
 tar -xzf "$stage/upstream.tar.gz" -C "$stage/src" --strip-components=1
 
+# Local fixes not merged upstream yet (e.g. open PRs). They live here rather
+# than in the spec so a spec-sync from upstream does not drop them. Once
+# upstream merges one, it stops applying: delete the file.
+shopt -s nullglob
+for p in "$here"/*.patch; do
+    patch -d "$stage/src" -p1 --forward --batch < "$p"
+done
+shopt -u nullglob
+
 dest="$stage/$name-$version"
 mkdir -p "$dest/copr"
 cp "$stage/src/build-official.sh" "$stage/src/README.md" "$stage/src/LICENSE-MIT" "$dest/"

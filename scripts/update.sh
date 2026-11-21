@@ -52,7 +52,10 @@ spec-sync)
     trap 'rm -f "$tmp"' EXIT
     curl -fsSL "https://raw.githubusercontent.com/$UPSTREAM_REPO/$sha/$UPSTREAM_SPEC" -o "$tmp"
     latest="$(spec_field Version "$tmp")-$(spec_field Release "$tmp")"
-    [ "$latest" = "$current-$(spec_field Release "$spec")" ] && exit 0
+    mine="$current-$(spec_field Release "$spec")"
+    [ "$latest" = "$mine" ] && exit 0
+    # Only move forward: a local Release bump must not be undone by a sync.
+    [ "$(printf '%s\n%s\n' "$mine" "$latest" | sort -V | tail -1)" = "$latest" ] || exit 0
     # Upstream bumped the spec: take it as-is and pin that commit.
     cp "$tmp" "$spec"
     sed -i "s/^UPSTREAM_REF=.*/UPSTREAM_REF=$sha/" "$env"
