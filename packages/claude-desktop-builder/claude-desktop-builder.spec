@@ -1,6 +1,6 @@
 Name:           claude-desktop-builder
-Version:        1.0.3
-Release:        2%{?dist}
+Version:        1.0.5
+Release:        1%{?dist}
 Summary:        Builds and updates Claude Desktop for Fedora from the official upstream build
 
 License:        MIT
@@ -84,9 +84,13 @@ fi
 %dir %{_sharedstatedir}/%{name}
 
 %changelog
-* Sat Nov 21 2026 C.N. <contact@kareylo.fr> - 1.0.3-2
-- Package /usr/share/pixmaps/claude-desktop.png shipped by 6.28899.x payloads
-  (dewzor/claude-desktop-fedora PR #12, applied locally)
+* Sun Nov 22 2026 dewzor <16418668+dewzor@users.noreply.github.com> - 1.0.5-1
+- Package new files under /usr/share/ and stop with a list of paths to
+  report if upstream adds files outside the known paths.
+
+* Sat Nov 21 2026 dewzor <16418668+dewzor@users.noreply.github.com> - 1.0.4-1
+- Package the pixmaps icon that Claude Desktop 6.28899.x ships, so the
+  build and the daily update work again (#12)
 
 * Thu Oct 22 2026 Anıl Sürmeli <126188687+anilsrml@users.noreply.github.com> - 1.0.3-1
 - Run build-official.sh under C.UTF-8 so its checks pass in every locale;
